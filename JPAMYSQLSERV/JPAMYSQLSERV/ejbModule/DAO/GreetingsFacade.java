@@ -31,6 +31,11 @@ public class GreetingsFacade extends AbstractFacade<greetings>{
 	       List<greetings> res = query.getResultList();
 	       return res;
 	   }
+	   
+	   public greetings findById(long id) {
+	       return (greetings) em.createQuery(
+	        "select g from greetings g where g.id = :id").setParameter("id", id).getSingleResult();
+	   }
 
 	
 	//	GreetingsFacade GF = new GreetingsFacade(greetings);
