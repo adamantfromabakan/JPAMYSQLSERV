@@ -11,5 +11,5 @@ public interface greetingsinterface {
 	public String UPD_GREETINGS(int id,String newname);
 	public String REM_GREETINGS(long id);
 	public Collection<greetings> findAllGreetings(); 
-	public greetings FindGreetings(int id);	
+	public greetings FindGreetings(long id);	
 }

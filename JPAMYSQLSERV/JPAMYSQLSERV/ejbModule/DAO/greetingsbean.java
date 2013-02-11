@@ -9,6 +9,8 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -68,7 +70,8 @@ public class greetingsbean implements greetingsinterface {
 	
     }
 	
-	 public greetings FindGreetings(int id) {
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	 public greetings FindGreetings(final long id) {
 		    return em.find(greetings.class, id);
 	   }
 	 
@@ -81,7 +84,7 @@ public class greetingsbean implements greetingsinterface {
 	  @SuppressWarnings("unchecked")
 	  public Collection<greetings> findAllGreetings() 
 	     {
-		System.out.println("\n\t Inside findAllEmployees()");
+		//System.out.println("\n\t Inside findAllEmployees()");
 	        Query query = em.createQuery("SELECT g FROM greetings g");
 	        return (Collection<greetings>) query.getResultList();
 	     }
