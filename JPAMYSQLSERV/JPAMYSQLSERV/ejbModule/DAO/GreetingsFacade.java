@@ -32,9 +32,10 @@ public class GreetingsFacade extends AbstractFacade<greetings>{
 	       return res;
 	   }
 	   
-	   public greetings findById(long id) {
-	       return (greetings) em.createQuery(
-	        "select g from greetings g where g.id = :id").setParameter("id", id).getSingleResult();
+	   public List<greetings> findById(long id)  {
+		   Query query = em.createQuery("select g from greetings g where g.id = :id").setParameter("id", id);
+		   List<greetings> res = query.getResultList();
+	       return res; //.getSingleResult();
 	   }
 
 	

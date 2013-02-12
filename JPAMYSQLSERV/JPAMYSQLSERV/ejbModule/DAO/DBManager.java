@@ -36,11 +36,16 @@ public class DBManager implements DBManagerInterface{
 	}
 
 	@Override
-	public String updategreetings(int id, String newname) {
+	public String updategreetings(long id, String newname) {
 		String result = null;
 		try {
-			
+			greetings gr = new greetings();
+			gr=greetingsfacade.find(id);
+			if (gr != null) {
+				gr.setName(newname);
+				greetingsfacade.edit(gr); 
 				result = "Row updated: ID " + id + " new NAME " + newname;
+				}
 		} catch (Exception e) {
 			result = Level.SEVERE + " Caught Exception processing object " + e;
 			//System.out.println(Level.SEVERE + " Caught Exception processing object " + e);
@@ -54,10 +59,11 @@ public class DBManager implements DBManagerInterface{
 		try {
 			greetings gr = new greetings();
 			gr=greetingsfacade.find(id);
+			if (gr != null) {
 			greetingsfacade.remove(gr);
-		
-		result = "Row deleted: ID " + id;
-			} catch (Exception e) {
+			result = "Row deleted: ID " + id;
+			}
+					} catch (Exception e) {
 				result = Level.SEVERE + " Caught Exception processing object " + e;
 				//System.out.println(Level.SEVERE + " Caught Exception processing object " + e);
 			}
@@ -67,14 +73,12 @@ public class DBManager implements DBManagerInterface{
 
 	@Override
 	public Collection<greetings> findAllGreetings() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Collection<greetings>) greetingsfacade.findAll();
 	}
 
 	@Override
-	public greetings findGreetingsId(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<greetings> findGreetingsId(long id) {
+		return (Collection<greetings>) greetingsfacade.findById(id);
 	}
 	
 	
